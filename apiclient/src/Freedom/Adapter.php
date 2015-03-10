@@ -1,7 +1,7 @@
 <?php
-namespace Freedom\Adapter;
+namespace Freedom\Service;
 
-use Freedom\Adapter\Curl;
+use Freedom\Curl;
 
 define('_SERVER', 'apidev.freedom.tm');
 define('_PORT', 8000);

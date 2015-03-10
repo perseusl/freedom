@@ -1,4 +1,4 @@
-<?php namespace Freedom\Adapter;
+<?php namespace Freedom;
 
 class Curl {
     private $ch;
