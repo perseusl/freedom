@@ -1,7 +1,4 @@
 <?php
-namespace Freedom;
-
-use Freedom\Curl;
 
 class Freedom_Service_OAuth {
     protected $config;

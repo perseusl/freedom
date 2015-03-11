@@ -1,5 +1,5 @@
 {
-    "name" : "anytv/freedomapiclient",
+    "name" : "anytv/apiclient",
     "type" : "library",
     "description" : "Client library for Freedom APIs",
     "keywords" : ["anytv", "freedom"],

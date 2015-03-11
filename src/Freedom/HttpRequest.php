@@ -1,6 +1,6 @@
 <?php
 
-class HttpRequest {
+class Freedom_HttpRequest {
     private $ch;
     private $querystring = array();
     private $headers = array();
