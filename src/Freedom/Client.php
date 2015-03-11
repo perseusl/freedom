@@ -26,7 +26,7 @@ class Freedom_Service_OAuth {
         $this->_server = $this->server . ':' . $this->port;
 
         $this->scopes = $this->config['basic_scopes'];
-        $this->request = new Curl($this->_server);
+        $this->request = new Freedom_HttpRequest($this->_server);
     }
 
 	public function setScopes($scopes = []) {

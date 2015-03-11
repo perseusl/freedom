@@ -1,16 +1,13 @@
 <?php
-namespace Freedom\Services;
 
-use Freedom\Adapter\Adapter;
-
-class UserService {
+class Freedom_Service_User {
 	
 	protected $request;
 	protected $adapter;
 
     public function __construct($client)
 	{
-        $this->adapter = new Adapter($client);
+        $this->adapter = new Freedom_Adapter($client);
         $this->request = $this->adapter->getRequest(); //request instance
     }
 

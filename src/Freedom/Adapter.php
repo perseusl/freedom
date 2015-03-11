@@ -20,7 +20,7 @@ class Freedom_Adapter {
         $this->server = $server;
         $this->port = $port;
         $this->_server = $this->server . ':' . $this->port;
-        $this->request = new Curl($this->_server);
+        $this->request = new Freedom_HttpRequest($this->_server);
         $this->ready = true;
 
         $this->request->addHeader(
