@@ -1,0 +1,19 @@
+{
+    "name" : "anytv/freedomapiclient",
+    "type" : "library",
+    "description" : "Client library for Freedom APIs",
+    "keywords" : ["anytv", "freedom"],
+    "homepage" : "https://github.com/perseusl/freedom-api-client",
+    "license" : "Apache-2.0",
+    "require" : {
+        "php" : ">=5.2.1"
+    },
+    "require-dev" : {
+        "phpunit/phpunit" : "4.5.*"
+    },
+    "autoload" : {
+        "classmap" : [
+            "src/"
+        ]
+    }
+}

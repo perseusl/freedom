@@ -1,6 +1,6 @@
-<?php namespace Freedom;
+<?php
 
-class Curl {
+class HttpRequest {
     private $ch;
     private $querystring = array();
     private $headers = array();
