@@ -11,8 +11,8 @@
 */
 
 function freedom_api_php_client_autoload($className) {
-    $classPath = explode('-', $className);
-    if ($classPath[0] != 'AnyTV') {
+    $classPath = explode('_', $className);
+    if ($classPath[0] != 'Freedom') {
         return;
     }
     if (count($classPath) > 3) {
@@ -20,7 +20,7 @@ function freedom_api_php_client_autoload($className) {
         $classPath = array_slice($classPath, 0, 3);
     }
     $filePath = dirname(__FILE__) . '/src/' . implode('/', $classPath) . '.php';
-    if (file_exists($filePath)) {
+    if (file_exists($filePath) && is_readable($filePath)) {
         require_once($filePath);
     }
 }

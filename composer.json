@@ -5,6 +5,7 @@
     "keywords" : ["anytv", "freedom"],
     "homepage" : "https://github.com/perseusl/freedom-api-client",
     "license" : "Apache-2.0",
+    "minimum-stability" : "dev",
     "require" : {
         "php" : ">=5.2.1"
     },
