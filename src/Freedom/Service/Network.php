@@ -1,16 +1,7 @@
 <?php
 
-class Freedom_Service_Network {
+class Freedom_Service_Network extends Freedom_Service {
 	
-	protected $request;
-	protected $adapter;
-
-	public function __construct($client)
-	{
-		$this->adapter = new Freedom_Adapter($client);
-		$this->request = $this->adapter->getRequest(); //request instance
-	}
-
 	public function getNetworkInfo($network_id)
 	{
 		$network_id = $this->adapter->requires(['network_id' => $network_id ], ['network_id']);

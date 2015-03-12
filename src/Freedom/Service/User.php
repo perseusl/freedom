@@ -1,16 +1,7 @@
 <?php
 
-class Freedom_Service_User {
+class Freedom_Service_User extends Freedom_Service {
 	
-	protected $request;
-	protected $adapter;
-
-    public function __construct($client)
-	{
-        $this->adapter = new Freedom_Adapter($client);
-        $this->request = $this->adapter->getRequest(); //request instance
-    }
-
     public function getUser($id = null)
     {
         $this->request->get('/user/' . $id);

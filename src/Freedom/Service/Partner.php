@@ -1,16 +1,7 @@
 <?php
 
-class Freedom_Service_Partner {
+class Freedom_Service_Partner extends Freedom_Service {
 	
-	protected $request;
-	protected $adapter;
-
-	public function __construct($client)
-	{
-		$this->adapter = new Freedom_Adapter($client);
-		$this->request = $this->adapter->getRequest(); //request instance
-	}
-
 	public function reauthChannel($rawpayload)
 	{
 		$pub = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 16);
@@ -45,6 +36,7 @@ class Freedom_Service_Partner {
         }
 		return $this->request->response['data'];
 	}
+
 	public function addChannel($payload)
 	{
 		$payload = $this->adapter->requires($payload, [
@@ -164,6 +156,4 @@ class Freedom_Service_Partner {
 		return $this->request->response['data'];
 
 	}
-
-
 }

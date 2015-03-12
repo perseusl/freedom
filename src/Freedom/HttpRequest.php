@@ -16,7 +16,7 @@ class Freedom_HttpRequest {
     function __construct ($server) {
         $this->server = $server;
         $this->ch = curl_init($server);
-        $this->file = fopen(storage_path() . '/logs/err.txt', 'w');
+        //$this->file = fopen(storage_path() . '/logs/err.txt', 'w');
     }
 
     /**
@@ -148,7 +148,7 @@ class Freedom_HttpRequest {
         }
 
         curl_setopt($this->ch, CURLOPT_VERBOSE, true);
-        curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
+        //curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
         curl_setopt($this->ch, CURLOPT_HTTPGET, true);
         curl_setopt($this->ch, CURLOPT_URL, $this->server . $path . $qs);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);

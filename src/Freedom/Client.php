@@ -10,7 +10,7 @@ class Freedom_Client {
 
     public function __construct ()
     {
-        $this->authClass = new Freedom_Service_Oauth;
+        $this->authClass = new Freedom_Oauth;
     }
 
     public function authenticate($data)
@@ -32,9 +32,9 @@ class Freedom_Client {
         $this->authClass->setAccessToken($accessToken);
     }
 
-    public function getAccessToken($accessToken)
+    public function getAccessToken()
     {
-        $token = $this->authClass->getAccessToken;
+        $token = $this->authClass->getAccessToken();
         return (null == $token || 'null' == $token || '[]' == $token) ? null : $token;
     }
 

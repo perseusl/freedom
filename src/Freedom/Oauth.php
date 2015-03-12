@@ -1,6 +1,6 @@
 <?php
 
-class Freedom_Service_OAuth {
+class Freedom_OAuth {
     protected $config;
 	protected $scopes;
 	protected $clientId;

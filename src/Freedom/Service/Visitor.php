@@ -1,15 +1,6 @@
 <?php
 
-class Freedom_Service_Visitor {
-
-	protected $request;
-	protected $adapter;
-
-	public function __construct ($client)
-	{
-		$this->adapter = new Freedom_Adapter($client);
-		$this->request = $this->adapter->getRequest(); //request instance
-	}
+class Freedom_Service_Visitor extends Freedom_Service {
 
 	public function sendResetEmail($query)
     {
