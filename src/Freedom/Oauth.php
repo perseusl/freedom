@@ -1,12 +1,13 @@
 <?php
 
 class Freedom_OAuth {
+
     protected $config;
-	protected $scopes;
-	protected $clientId;
-	protected $_server;
-	protected $port;
-	protected $server;
+  	protected $scopes;
+	  protected $clientId;
+	  protected $_server;
+	  protected $port;
+	  protected $server;
     protected $accessToken = null;
     protected $request;
 
@@ -45,7 +46,6 @@ class Freedom_OAuth {
         unset($response['users'][0]['data_' . $this->clientId]);
         return $response;
     }
-
 
     private function login($payload, $source = 'google')
     {
