@@ -17,13 +17,14 @@ class Freedom_Service_User extends Freedom_Service {
         return $this->request->response['data'];
     }
 
+/*  commenting this because of its absence in the backend
     public function getActivities()
     {
     	$this->request->get('/activities');
 
     	return $this->request->response;
     
-    }
+    }*/
 
     public function getUserInfo()
     {
