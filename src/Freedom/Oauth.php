@@ -4,20 +4,21 @@ class Freedom_OAuth {
 
     protected $config;
   	protected $scopes;
-	  protected $clientId;
-	  protected $_server;
-	  protected $port;
-	  protected $server;
+	protected $clientId;
+	protected $_server;
+	protected $port;
+    protected $server;
     protected $accessToken = null;
     protected $request;
 
     function __construct($server = NULL, $port = NULL)
     {
         $this->config = include('configuration.php');
-        if(!$server) {
+        if (!$server) {
             $server = $this->config['auth_server']['url'];
         }
-        if(!$port) {
+
+        if (!$port) {
             $port = $this->config['auth_server']['port'];
         }
 
@@ -31,19 +32,27 @@ class Freedom_OAuth {
 
     public function getUserInfo()
     {
-        if(!$this->accessToken) {
+        $response = array();
+
+        if (!$this->accessToken) {
             throw new \Exception ('Missing access token');
         }
 
-        $response = array();
         $this->request->setQueryString([
-                'access_token' => $this->accessToken,
-                'self' => true
-            ]);
+            'access_token' => $this->accessToken,
+            'self' => true
+        ]);
+
         $this->request->get('/user');
+
+        if ($this->request->response['statusCode'] !== 200) {
+            throw new \Exception ($this->request->respone['data']);
+        }
+
         $response = json_decode($this->request->response['data'], true);
         $response['users'][0]['app_data'] = $response['users'][0]['data_' . $this->clientId];
         unset($response['users'][0]['data_' . $this->clientId]);
+
         return $response;
     }
 
@@ -54,9 +63,10 @@ class Freedom_OAuth {
         $this->request->setPayload($payload);
         $this->request->post('/auth/login');
 
-        if($this->request->response['statusCode'] !== 200) {
+        if ($this->request->response['statusCode'] !== 200) {
             throw new \Exception ($this->request->response['data']);
         }
+
         return json_decode($this->request->response['data'], true);
     }
 
@@ -69,7 +79,7 @@ class Freedom_OAuth {
         $this->request->setQueryString($payload);
         $this->request->get('/auth/request_token');
 
-        if($this->request->response['statusCode'] !== 200) {
+        if ($this->request->response['statusCode'] !== 200) {
             throw new \Exception ($this->request->response['data']);
         }
 
@@ -81,24 +91,24 @@ class Freedom_OAuth {
     {
         $response = array();
         if ($source === 'google') {
-            if($payload['email'] === NULL || $payload['google_access_token'] === NULL) {
+            if ($payload['email'] === NULL || $payload['google_access_token'] === NULL) {
                 throw new \Exception ('Missing requires');
             }
         } else {
-            if($payload['email'] === NULL || $payload['password'] === NULL)
+            if ($payload['email'] === NULL || $payload['password'] === NULL)
                 throw new \Exception ('Missing requires');
         }
 
-        if(!$this->clientId) {
-            throw new \Exception ('no client id');
+        if (!$this->clientId) {
+            throw new \Exception ('No client id');
         }
 
         $scopeToken = $this->login($payload, $source);
-        if($scopeToken['user_data']['data_'.$this->clientId]) {
+        if ($scopeToken['user_data']['data_'.$this->clientId]) {
             $scopeToken['app_data'] = $scopeToken['user_data']['data_'.$this->clientId];
             unset($scopeToken['user_data']['data_'.$this->clientId]);
 
-            if(isset($scopeToken['app_data']['roles'])) {
+            if (isset($scopeToken['app_data']['roles'])) {
                 $roles = $scopeToken['app_data']['roles'];
             } else {
                 $roles = $this->config['basic_roles'];
@@ -120,25 +130,28 @@ class Freedom_OAuth {
         $this->accessToken = json_decode($this->request->response['data'], true)['access_token'];
         $this->request->addHeader(array('X-ACCESS-TOKEN' => $this->accessToken));
         $response = $scopeToken;
+
         return $response;
     }
 
     public function register($payload = array())
     {
-        if(!$payload['email'] || !$payload['lname'] || !$payload['fname'] || !$payload['birthdate']) {
+        if (!$payload['email'] || !$payload['lname'] || !$payload['fname'] || !$payload['birthdate']) {
             throw new \Exception ('Missing requires');
         }
 
         $payload['app_id'] = $this->clientId;
         $roles = $this->config['basic_roles'];
         $scopes = [];
+
         foreach ($roles as $role) {
             $scopes = array_merge($scopes, $this->config['scopes'][$role]);
         }
+
         $this->setScopes($scopes);
         $payload['scopes'] = $this->scopes;
 
-        if(!$this->clientId) {
+        if (!$this->clientId) {
             throw new \Exception ('no client id');
         }
 
@@ -152,6 +165,7 @@ class Freedom_OAuth {
         $response = json_decode($this->request->response['data'], true);
         $this->accessToken = $response['access_token'];
         $this->request->addHeader(array('X-ACCESS-TOKEN' => $this->accessToken));
+
         return $response;
     }
 
@@ -160,7 +174,7 @@ class Freedom_OAuth {
         return $this->accessToken;
     }
 
-    public function setAccessToken ($accessToken)
+    public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
     }

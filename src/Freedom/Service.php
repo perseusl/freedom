@@ -1,6 +1,7 @@
 <?php
 
 class Freedom_Service {
+
 	  protected $adapter;
 	  protected $request;
 
