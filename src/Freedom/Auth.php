@@ -1,33 +1,17 @@
 <?php
 
-class Freedom_OAuth {
+class Freedom_Auth {
 
-    protected $config;
   	protected $scopes;
 	protected $clientId;
-	protected $_server;
-	protected $port;
-    protected $server;
     protected $accessToken = null;
     protected $request;
 
-    function __construct($server = NULL, $port = NULL)
+    function __construct(Freedom_Client $client)
     {
-        $this->config = include('configuration.php');
-        if (!$server) {
-            $server = $this->config['auth_server']['url'];
-        }
-
-        if (!$port) {
-            $port = $this->config['auth_server']['port'];
-        }
-
-        $this->server = $server;
-        $this->port = $port;
-        $this->_server = $this->server . ':' . $this->port;
-
-        $this->scopes = $this->config['basic_scopes'];
-        $this->request = new Freedom_HttpRequest($this->_server);
+        $this->client = $client;
+        $this->scopes = $this->client->config->get('basic_scopes');
+        $this->request = new Freedom_HttpRequest($this->client->config->getBasePath());
     }
 
     public function getUserInfo()
@@ -115,9 +99,7 @@ class Freedom_OAuth {
             }
 
             $scopes = [];
-            foreach ($roles as $role) {
-                $scopes = array_merge($scopes, $this->config['scopes'][$role]);
-            }
+            $scopes = $this->client->config->getScopesByRole($roles);
             $this->setScopes($scopes);
         }
         $requestToken = $this->getRequestToken($scopeToken);
@@ -142,12 +124,9 @@ class Freedom_OAuth {
 
         $payload['app_id'] = $this->clientId;
         $roles = $this->config['basic_roles'];
+
         $scopes = [];
-
-        foreach ($roles as $role) {
-            $scopes = array_merge($scopes, $this->config['scopes'][$role]);
-        }
-
+        $scopes = $this->client->config->getScopesByRole($roles);
         $this->setScopes($scopes);
         $payload['scopes'] = $this->scopes;
 
@@ -177,6 +156,11 @@ class Freedom_OAuth {
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+    }
+
+    public function setScopes($scopes)
+    {
+        $this->scopes = implode(',', $scopes);
     }
 }
 

@@ -2,15 +2,15 @@
 
 class Freedom_Client {
 
-    private $scopes;
-    private $clientId;
-    private $authClass;
-    private $accessToken = null;
-    private $client;
+    protected $authClass;
+    protected $accessToken = null;
+    protected $client;
+    public $config;
 
     public function __construct ()
     {
-        $this->authClass = new Freedom_Oauth;
+        $this->config = new Freedom_Config;
+        $this->authClass = new Freedom_Auth($this);
     }
 
     public function authenticate($data)
@@ -40,7 +40,7 @@ class Freedom_Client {
 
     public function setClientId($id)
     {
-        $this->clientId = $id;
+        $this->config->setClientId($id);
     }
 
     public function getClient()
@@ -50,7 +50,22 @@ class Freedom_Client {
 
     public function setScopes($scopes = [])
     {
-        $this->scopes = implode(',', $scopes);
+        $this->authClass->setScopes($scopes);
+    }
+
+    public function setApplicationName($name)
+    {
+        $this->config->setApplicationName($name);
+    }
+
+    public function setClientSecret($secret)
+    {
+        $this->config->setClientSecret($secret);
+    }
+
+    public function setRedirectUri($uri)
+    {
+        $this->config->setRedirectUri($uri);
     }
 }
 
