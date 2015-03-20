@@ -81,7 +81,7 @@ class Freedom_Service_UserTest extends BaseTest
 
 	public function testGetRecruitsWithChannel()
 	{
-		/*if(!$this->userService) {
+		if(!$this->userService) {
 			$this->testConnection();
 		}
 		//change queryString on what you need/want
@@ -102,7 +102,7 @@ class Freedom_Service_UserTest extends BaseTest
 				$this->assertTrue(null !== $recruit->app_data->referred_by, 'A recruited user has no referred by value set');
 				$this->assertEquals($this->userId, $recruit->app_data->referred_by);
 			}
-		}*/
+		}
 	}
 
 	public function testFindProspect()
@@ -117,13 +117,13 @@ class Freedom_Service_UserTest extends BaseTest
 
 	public function getUserProspect()
 	{
-/*		if(!$this->userService) {
+		if(!$this->userService) {
 			$this->testConnection();
 		}
 
 		$prospects = $this->userService->getUserProspects();
 		echo "======================================";
 		var_dump($prospects);
-		echo "+++++++++++++++++++++++++++++++++++++++++++";*/
+		echo "+++++++++++++++++++++++++++++++++++++++++++";
 	}
 }
