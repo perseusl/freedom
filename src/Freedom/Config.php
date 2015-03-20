@@ -8,13 +8,13 @@ class Freedom_Config {
     {
         $this->config = array(
             'application_name' => '',
-            'client_id' => '',
-            'client_secret' => '',
+            'client_id' => '665f627007666750b092f6a68396ed76',
+            'client_secret' => '704a857f886341eb7980a899b18a2687',
             'redirect_uri' => '',
 
-            //Do not change these values
-            'backend_host' => 'https://api.freedom.tm',
-            'auth_host' => 'https://accounts.freedom.tm',
+            //Do not change these values unless you're testing from different host
+            'backend_host' => 'apidev.freedom.tm:8000',
+            'auth_host' => 'apidev.freedom.tm:3000',
             'basic_scopes' => 'web.view,mobile.view,self.view,self.edit,self.delete',
             'basic_roles' => ['all', 'recruiter', 'payout'],
             'roles' =>
@@ -71,6 +71,7 @@ class Freedom_Config {
 
     public function getScopesByRole($roles = [])
     {
+        $scopes = [];
         if (sizeof($roles) === 0 ) {
             $roles = $this->config['basic_roles'];
         }

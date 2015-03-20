@@ -171,7 +171,7 @@ class Freedom_HttpRequest {
         }
 
         curl_setopt($this->ch, CURLOPT_VERBOSE, true);
-        curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
+        //curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
         curl_setopt($this->ch, CURLOPT_POST, true);
         curl_setopt($this->ch, CURLOPT_URL, $this->server . $path);
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, $payload);
@@ -196,7 +196,7 @@ class Freedom_HttpRequest {
         }
 
         curl_setopt($this->ch, CURLOPT_VERBOSE, true);
-        curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
+        //curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
         curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, 'PUT');
         curl_setopt($this->ch, CURLOPT_URL, $this->server . $path);
         curl_setopt($this->ch, CURLOPT_POSTFIELDS, $payload);
@@ -221,7 +221,7 @@ class Freedom_HttpRequest {
         }
 
         curl_setopt($this->ch, CURLOPT_VERBOSE, true);
-        curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
+        //curl_setopt($this->ch, CURLOPT_STDERR, $this->file);
         curl_setopt($this->ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
         curl_setopt($this->ch, CURLOPT_URL, $this->server . $path . $qs);
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);

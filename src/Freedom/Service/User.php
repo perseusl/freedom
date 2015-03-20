@@ -35,7 +35,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function updateUserInfo($payload)
     {
-    	$payload = $this->adapter->requires($payload, [], [
+    	$payload = $this->requires($payload, [], [
     		'lname',
     		'fname',
     		'birthdate',
@@ -67,7 +67,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function getRecruitsWithChannel($query)
     {
-    	$query = $this->adapter->requires($query, ['has_channels']);
+    	$query = $this->requires($query, ['has_channels']);
 
     	$this->request->setQueryString($query);
     	$this->request->get('/recruits');
@@ -75,31 +75,33 @@ class Freedom_Service_User extends Freedom_Service {
 	  	return $this->request->response;
     }
 
+/*  currently not in used in freedom-mnl, also not present in backend
     public function findRecruit($recruit_id, $query)
     {
 
-    	$recruit_id = $this->adapter->requires(['recruit_id' => $recruit_id ], ['recruit_id']);
-		$query = $this->adapter->requires($query, [], ['has_channels']);
+    	$recruit_id = $this->requires(['recruit_id' => $recruit_id ], ['recruit_id']);
+		$query = $this->requires($query, [], ['has_channels']);
 
     	$this->request->setQueryString($query);
     	$this->request->get('/recruits/search/' . $recruit_id['recruit_id']);
 
     	return $this->request->response;
-    }
+    }*/
 
+/*  as per esh, do not include earnings for now  
     public function getRecruitEarnings($query)
     {
-    	$query = $this->adapter->requires($query, [], ['report_id']);
+    	$query = $this->requires($query, [], ['report_id']);
 
     	$this->request->setQueryString($query);
     	$this->request->get('/earnings/recruits');
 
     	return $this->request->response;
-    }
+    }*/
 
     public function findProspect($prospect_id)
     {
-    	$prospect_id = $this->adapter->requires(['prospect_id' => $prospect_id ], ['prospect_id']);
+    	$prospect_id = $this->requires(['prospect_id' => $prospect_id ], ['prospect_id']);
 		
     	$this->request->setQueryString($query);
     	$this->request->get('/prospect/search/' . $prospect_id['prospect_id']);
@@ -109,7 +111,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function addProspect($payload)
     {
-		$payload = $this->adapter->requires($payload, [
+		$payload = $this->requires($payload, [
     		'username',
     		'owner',
     		'thumbnail'
@@ -130,8 +132,8 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function updateProspect($prospect_id, $payload)
     {
-    	$prospect_id = $this->adapter->requires(['prospect_id' => $prospect_id ], ['prospect_id']);
-		$payload = $this->adapter->requires($payload, [
+    	$prospect_id = $this->requires(['prospect_id' => $prospect_id ], ['prospect_id']);
+		$payload = $this->requires($payload, [
     		'status',
     		'note'
 		]);
@@ -144,7 +146,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function deleteProspects($query)
     {	
-    	$query = $this->adapter->requires($query, ['ids']);
+    	$query = $this->requires($query, ['ids']);
 
     	$this->request->setQueryString($payload);
     	$this->request->delete('/prospects');
@@ -204,7 +206,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function submitVideoReview($payload)
     {
-    	$payload = $this->adapter->requires($payload, ['video_id'], [
+    	$payload = $this->requires($payload, ['video_id'], [
     		'title',
     		'image',
     		'campaign_id'
@@ -218,7 +220,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function updateXsplitName($payload)
     {
-    	$payload = $this->adapter->requires($payload, ['username'] );
+    	$payload = $this->requires($payload, ['username'] );
 
     	$this->request->setPayload($payload);
     	$this->request->put('/sponsorship/xsplit/update_username');
@@ -228,7 +230,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function submitSponsorApplication($payload)
     {
-    	$payload = $this->adapter->requires($payload, [
+    	$payload = $this->requires($payload, [
     		'name',
     		'mailing_address',
     		'email',
@@ -260,7 +262,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function submitSpotlightVideo($payload)
     {
-    	$payload = $this->adapter->requires($payload, [
+    	$payload = $this->requires($payload, [
     		'video_id',
     		'reason'
 		]);
@@ -274,7 +276,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function registerEvent($payload)
     {
-    	$payload = $this->adapter->requires($payload, ['name']);
+    	$payload = $this->requires($payload, ['name']);
 
     	$this->request->setPayload($payload);
     	$this->request->post('/points/register_event');
@@ -284,7 +286,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function bidOnVideo($payload)
     {
-    	$payload = $this->adapter->requires($payload, [
+    	$payload = $this->requires($payload, [
     		'video_id',
     		'bid'
 		]);
@@ -297,7 +299,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function upsertUsername($payload)
     {
-    	$payload = $this->adapter->requires($payload, [
+    	$payload = $this->requires($payload, [
     		'app',
     		'username'
 		]);
@@ -310,7 +312,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function deleteUsername($query)
     {
-    	$query = $this->adapter->requires($query, ['app']);
+    	$query = $this->requires($query, ['app']);
 
     	$this->request->setQueryString($query);
     	$this->request->delete('/username');
@@ -320,7 +322,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function getUsername($query)
     {
-    	$query = $this->adapter->requires($query, ['app']);
+    	$query = $this->requires($query, ['app']);
 
     	$this->request->setQueryString($query);
     	$this->request->get('/username');
@@ -330,7 +332,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function sendResetEmail($query)
     {
-    	$query = $this->adapter->requires($query, ['email']);
+    	$query = $this->requires($query, ['email']);
 
     	$this->request->setQueryString($query);
     	$this->request->get('/send_reset_mail');
@@ -340,7 +342,7 @@ class Freedom_Service_User extends Freedom_Service {
 
     public function resetEmail($payload)
     {
-    	$payload = $this->adapter->requires($payload, [
+    	$payload = $this->requires($payload, [
     		'email',
     		'password',
     		'reset_token'
@@ -353,7 +355,7 @@ class Freedom_Service_User extends Freedom_Service {
     }
 
     public function loginAsUser($payload) {
-        $this->adapter->requires($payload, [
+        $this->requires($payload, [
         	'user_id',
         	'access_token',
         	'roles'

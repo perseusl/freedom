@@ -11,7 +11,8 @@ class Freedom_Auth {
     {
         $this->client = $client;
         $this->scopes = $this->client->config->get('basic_scopes');
-        $this->request = new Freedom_HttpRequest($this->client->config->getBasePath());
+        $this->clientId = $this->client->config->get('client_id');
+        $this->request = new Freedom_HttpRequest($this->client->config->getAuthPath());
     }
 
     public function getUserInfo()
