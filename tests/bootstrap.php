@@ -5,7 +5,7 @@ $autoloadPath = __DIR__;
 var_dump($autoloadPath);
 $autoloadPath = explode('\\', $autoloadPath);
 array_pop($autoloadPath);
-$autoloadPath = join('/', $autoloadPath);
+$autoloadPath = imploded('/', $autoloadPath);
 
 require_once $autoloadPath . '/vendor/autoload.php';
 require_once __DIR__ . '/BaseTest.php';
