@@ -76,7 +76,9 @@ class Freedom_Service_UserTest extends BaseTest
 
 	public function testUpdateUserInfo()
 	{
-		//
+		if(!$this->userService) {
+			$this->testConnection();
+		}
 	}
 
 	public function testGetRecruitsWithChannel()
