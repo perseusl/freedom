@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once $autoloadPath . '/vendor/autoload.php';
 require_once __DIR__ . '/BaseTest.php';
 //set a valid access token here . . .
 //$valid
