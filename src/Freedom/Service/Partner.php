@@ -1,7 +1,9 @@
-<?php
+<?php namespace AnyTV\Freedom\Service;
 
-class Freedom_Service_Partner extends Freedom_Service {
-	
+use \Exception;
+
+class Partner extends Service {
+
 	public function reauthChannel($rawpayload)
 	{
 		$pub = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 16);
@@ -11,28 +13,28 @@ class Freedom_Service_Partner extends Freedom_Service {
 		$editedpayload['refresh_token'] = $rawpayload['refresh_token'];
 		$editedpayload['hash'] = sha1($priv.':'.$pub);
 		$editedpayload['pub'] = $pub;
-		
+
 		$payload = $this->adapter->requires($editedpayload, [
 			'access_token', 'refresh_token', 'hash', 'pub'
 		]);
-		
+
 		try {
 			$this->request->setPayload($payload);
 			$this->request->put('/channel/resolve/'.$rawpayload['channel_id']);
 
-	        if(gettype($this->request->response['data']) === 'string') {
+	        if (gettype($this->request->response['data']) === 'string') {
 	            $this->request->response['data'] = json_decode($this->request->response['data'], true);
 	        }
-	        
-			if($this->request->response['statusCode'] !== 200) {
-				
-				if($this->request->response['data'] === null) {
+
+			if ($this->request->response['statusCode'] !== 200) {
+
+				if ($this->request->response['data'] === null) {
 					$this->request->response['data']['message'] = 'You don\'t have channel associated on the email. Try another one or create a channel on that email.';
 				}
-				throw new \Exception ($this->request->response['data']['message']);
+				throw new Exception ($this->request->response['data']['message']);
 			}
 		} catch (Exception $ex) {
-            throw new \Exception ($this->request->response['data']['message']);
+            throw new Exception ($this->request->response['data']['message']);
         }
 		return $this->request->response['data'];
 	}
@@ -46,19 +48,19 @@ class Freedom_Service_Partner extends Freedom_Service {
 		$this->request->setPayload($payload);
 		$this->request->post('/channel');
 
-        if(gettype($this->request->response['data']) === 'string') {
+        if (gettype($this->request->response['data']) === 'string') {
             $this->request->response['data'] = json_decode($this->request->response['data'], true);
         }
 
-		if($this->request->response['statusCode'] !== 200) {
-			
-			if($this->request->response['data'] === null) {
+		if ($this->request->response['statusCode'] !== 200) {
+
+			if ($this->request->response['data'] === null) {
 				$this->request->response['data']['message'] = 'You don\'t have channel associated on the email. Try another one or create a channel on that email.';
 			}
-			
-			throw new \Exception ($this->request->response['data']['message']);
+
+			throw new Exception ($this->request->response['data']['message']);
 		}
-		
+
 		return $this->request->response['data'];
 	}
 
@@ -72,7 +74,7 @@ class Freedom_Service_Partner extends Freedom_Service {
 		$this->request->setQueryString($query);
 		$this->request->get('/channels');
 
-		return $this->request->response;	
+		return $this->request->response;
 	}
 
 	public function removeChannel($channel_id)
@@ -145,12 +147,12 @@ class Freedom_Service_Partner extends Freedom_Service {
 		$this->request->setQueryString($queryString);
 		$this->request->get('/channels');
 
-        if(gettype($this->request->response['data']) === 'string') {
+        if (gettype($this->request->response['data']) === 'string') {
             $this->request->response['data'] = json_decode($this->request->response['data'], true);
         }
 
-		if($this->request->response['statusCode'] !== 200) {
-			throw new \Exception ($this->request->response);
+		if ($this->request->response['statusCode'] !== 200) {
+			throw new Exception ($this->request->response);
 		}
 
 		return $this->request->response['data'];

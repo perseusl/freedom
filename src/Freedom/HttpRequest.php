@@ -1,6 +1,6 @@
-<?php
+<?php namespace AnyTV\Freedom;
 
-class Freedom_HttpRequest {
+class HttpRequest {
     private $ch;
     private $querystring = array();
     private $headers = array();
