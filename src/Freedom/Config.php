@@ -13,8 +13,8 @@ class Config {
             'redirect_uri' => '',
 
             //Do not change these values unless you're testing from different host
-            'backend_host' => 'https://api.freedom.tm',
-            'auth_host' => 'https://api.freedom.tm:3000',
+            'backend_host' => 'api.freedom.tm',
+            'auth_host' => 'api.freedom.tm:3000',
             'basic_scopes' => 'web.view,mobile.view,self.view,self.edit,self.delete',
             'basic_roles' => ['all', 'recruiter', 'payout'],
             'roles' =>
