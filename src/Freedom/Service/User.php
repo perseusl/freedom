@@ -1,16 +1,18 @@
-<?php
+<?php namespace AnyTV\Freedom\Service;
 
-class Freedom_Service_User extends Freedom_Service {
-	
+use \Exception;
+
+class User extends Service {
+
     public function getUser($id = null)
     {
         $this->request->get('/user/' . $id);
 
-        if($this->request->response['statusCode'] !== 200) {
-            throw new \Exception ($this->request->response['data']);
+        if ($this->request->response['statusCode'] !== 200) {
+            throw new Exception ($this->request->response['data']);
         }
 
-        if(gettype($this->request->response['data']) === 'string') {
+        if (gettype($this->request->response['data']) === 'string') {
             return json_decode($this->request->response['data'], true);
         }
 
@@ -49,7 +51,7 @@ class Freedom_Service_User extends Freedom_Service {
     		'avatar',
     		'facebook',
     		'twitter',
-    		'phones'
+    		'phone'
 		]);
 		
 		$this->request->setPayload($payload);
@@ -103,7 +105,7 @@ class Freedom_Service_User extends Freedom_Service {
     {
     	$prospect_id = $this->requires(['prospect_id' => $prospect_id ], ['prospect_id']);
 		
-    	$this->request->setQueryString($query);
+    	//$this->request->setQueryString($query);
     	$this->request->get('/prospect/search/' . $prospect_id['prospect_id']);
 
     	return $this->request->response;

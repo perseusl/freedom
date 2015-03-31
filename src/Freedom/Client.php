@@ -1,6 +1,8 @@
-<?php
+<?php namespace AnyTV\Freedom;
 
-class Freedom_Client {
+use AnyTV\Freedom\Auth\OAuth;
+
+class Client {
 
     protected $authClass;
     protected $accessToken = null;
@@ -9,8 +11,8 @@ class Freedom_Client {
 
     public function __construct ()
     {
-        $this->config = new Freedom_Config;
-        $this->authClass = new Freedom_Auth($this);
+        $this->config = new Config;
+        $this->authClass = new OAuth($this);
     }
 
     public function authenticate($data)

@@ -1,18 +1,22 @@
-<?php
+<?php namespace AnyTV\Freedom\Auth;
 
-class Freedom_Auth {
+use AnyTV\Freedom\Client;
+use AnyTV\Freedom\HttpRequest;
+use Exception;
+
+class OAuth {
 
   	protected $scopes;
 	protected $clientId;
     protected $accessToken = null;
     protected $request;
 
-    function __construct(Freedom_Client $client)
+    function __construct(Client $client)
     {
         $this->client = $client;
         $this->scopes = $this->client->config->get('basic_scopes');
         $this->clientId = $this->client->config->get('client_id');
-        $this->request = new Freedom_HttpRequest($this->client->config->getAuthPath());
+        $this->request = new HttpRequest($this->client->config->getAuthPath());
     }
 
     public function getUserInfo()
@@ -20,7 +24,7 @@ class Freedom_Auth {
         $response = array();
 
         if (!$this->accessToken) {
-            throw new \Exception ('Missing access token');
+            throw new Exception ('Missing access token');
         }
 
         $this->request->setQueryString([
@@ -31,7 +35,7 @@ class Freedom_Auth {
         $this->request->get('/user');
 
         if ($this->request->response['statusCode'] !== 200) {
-            throw new \Exception ($this->request->respone['data']);
+            throw new Exception ($this->request->respone['data']);
         }
 
         $response = json_decode($this->request->response['data'], true);
@@ -49,7 +53,7 @@ class Freedom_Auth {
         $this->request->post('/auth/login');
 
         if ($this->request->response['statusCode'] !== 200) {
-            throw new \Exception ($this->request->response['data']);
+            throw new Exception ($this->request->response['data']);
         }
 
         return json_decode($this->request->response['data'], true);
@@ -65,7 +69,7 @@ class Freedom_Auth {
         $this->request->get('/auth/request_token');
 
         if ($this->request->response['statusCode'] !== 200) {
-            throw new \Exception ($this->request->response['data']);
+            throw new Exception ($this->request->response['data']);
         }
 
         return json_decode($this->request->response['data'], true);
@@ -77,15 +81,15 @@ class Freedom_Auth {
         $response = array();
         if ($source === 'google') {
             if ($payload['email'] === NULL || $payload['google_access_token'] === NULL) {
-                throw new \Exception ('Missing requires');
+                throw new Exception ('Missing requires');
             }
         } else {
             if ($payload['email'] === NULL || $payload['password'] === NULL)
-                throw new \Exception ('Missing requires');
+                throw new Exception ('Missing requires');
         }
 
         if (!$this->clientId) {
-            throw new \Exception ('No client id');
+            throw new Exception ('No client id');
         }
 
         $scopeToken = $this->login($payload, $source);
@@ -120,7 +124,7 @@ class Freedom_Auth {
     public function register($payload = array())
     {
         if (!$payload['email'] || !$payload['lname'] || !$payload['fname'] || !$payload['birthdate']) {
-            throw new \Exception ('Missing requires');
+            throw new Exception ('Missing requires');
         }
 
         $payload['app_id'] = $this->clientId;
@@ -132,14 +136,14 @@ class Freedom_Auth {
         $payload['scopes'] = $this->scopes;
 
         if (!$this->clientId) {
-            throw new \Exception ('no client id');
+            throw new Exception ('no client id');
         }
 
         $this->request->setPayload($payload);
         $this->request->post('/user/register');
 
         if ($this->request->response['statusCode'] !== 200) {
-            throw new \Exception ($this->request->response['data']);
+            throw new Exception ($this->request->response['data']);
         }
 
         $response = json_decode($this->request->response['data'], true);
