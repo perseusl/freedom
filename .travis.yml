@@ -7,4 +7,4 @@ php:
   - "5.2"
 
 install:
-	- composer self-update
+  - composer self-update
