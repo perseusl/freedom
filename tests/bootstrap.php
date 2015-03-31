@@ -2,8 +2,8 @@
 
 
 $autoloadPath = __DIR__;
-var_dump($autoloadPath);
 $autoloadPath = explode('\\', $autoloadPath);
+var_dump($autoloadPath);
 array_pop($autoloadPath);
 $autoloadPath = implode('/', $autoloadPath);
 $autoloadPath = $autoloadPath . '/';
