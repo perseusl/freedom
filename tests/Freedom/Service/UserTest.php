@@ -258,7 +258,7 @@ class Freedom_Service_UserTest extends BaseTest
 
 	public function testUpdateProspect()
 	{
-		/*if(!$this->userService) {
+		if(!$this->userService) {
 			$this->testConnection();
 		}
 
@@ -269,7 +269,7 @@ class Freedom_Service_UserTest extends BaseTest
 			$payload = $req['payload'];
 			$updateProspect = $this->userService->updateProspect($prospect_id, $payload);
 
-		} skipped, got stucked :( */
+		}
 	}
 
 	public function testDeleteProspects()
