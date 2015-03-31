@@ -1,7 +1,7 @@
 /*README*/
 
 
-# Freedom Services #
+# Freedom Services # [![Build Status](https://travis-ci.org/perseusl/freedom-api-client.svg?branch=master)](https://travis-ci.org/perseusl/freedom-api-client)
 
 For testing Purposes:
 
