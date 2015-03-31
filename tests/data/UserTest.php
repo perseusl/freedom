@@ -76,7 +76,7 @@ class data_UserTest
 
 	public function updateProspect()
 	{
-		/*$data = [];
+		$data = [];
 		//status can be set as Contacted, Pitched, Demo, Negotiating, Closed (lost), Closed (won)
 		$data['include'] = false;
 		$data['prospect_id'] = '';
@@ -85,7 +85,7 @@ class data_UserTest
 			'note' => ''
 			 );
 
-		return $data;*/
+		return $data;
 	}
 
 	public function deleteProspects()
