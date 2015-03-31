@@ -1,6 +1,6 @@
-<?php
+<?php namespace AnyTV\Freedom;
 
-class Freedom_Config {
+class Config {
 
     protected $config;
 

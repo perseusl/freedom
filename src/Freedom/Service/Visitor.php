@@ -1,6 +1,8 @@
-<?php
+<?php namespace AnyTV\Freedom\Service;
 
-class Freedom_Service_Visitor extends Freedom_Service {
+use \Exception;
+
+class Visitor extends Service {
 
 	public function sendResetEmail($query)
     {
@@ -20,7 +22,7 @@ class Freedom_Service_Visitor extends Freedom_Service {
     		'reset_token'
 		]);
 
-        if( gettype($payload) === 'string' ) {
+        if (gettype($payload) === 'string' ) {
 
             $message = [
                 'message' => $payload,

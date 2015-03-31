@@ -1,21 +1,21 @@
-<?php
+<?php namespace AnyTV\Freedom\Service;
 
-class Freedom_Service_Network extends Freedom_Service {
-	
+class Network extends Service {
+
 	public function getNetworkInfo($network_id)
 	{
 		$network_id = $this->adapter->requires(['network_id' => $network_id ], ['network_id']);
 
 		$this->request->get('/network/' . $network_id['network_id']);
-		
+
 		if ($this->request->response['statusCode'] !== 200) {
 			throw new \Exception($this->request->response['data']);
 		}
-		
-		if(gettype($this->request->response['data']) === 'string') {
+
+		if (gettype($this->request->response['data']) === 'string') {
             		$this->request->response['data'] = json_decode($this->request->response['data']);		
 		}
-		
+
 		return $this->request->response['data'];
 	}
 
