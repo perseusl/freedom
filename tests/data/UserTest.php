@@ -7,7 +7,7 @@ class data_UserTest
 	public function returnAccessToken()
 	{
 		//set test access token here
-		$accessToken = '375ec2d0104e4adc010e9a6419676736de1a6a7836f6adeefb54fbf01e790988';
+		$accessToken = '2ef412e6c53c945e5c1f335758173c34f7803ec3d4d6ff23f13c1611abdccc23';
 		return $accessToken;
 	}
 	
